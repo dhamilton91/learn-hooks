@@ -1,57 +1,28 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
-class Online extends Component<{ isOnline: boolean }, { showStatus: boolean }> {
-  state = {
-    prevIsOnline: false,
-    showStatus: false
-  };
+const Online = ({ isOnline }: { isOnline: boolean }) => {
+  const [showStatus, setShowStatus] = useState(false);
 
-  timeout?: NodeJS.Timeout;
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
 
-  componentDidMount() {
-    if (this.state.showStatus) {
-      this.timeout = setTimeout(() => {
-        this.setState({ showStatus: false });
+    if (isOnline) {
+      setShowStatus(true);
+      timeout = setTimeout(() => {
+        setShowStatus(false);
       }, 1500);
     }
-  }
 
-  static getDerivedStateFromProps(
-    { isOnline }: { isOnline: boolean },
-    { prevIsOnline }: { prevIsOnline: boolean }
-  ) {
-    if (prevIsOnline !== isOnline) {
-      return {
-        prevIsOnline: isOnline,
-        showStatus: isOnline
-      };
-    }
-    return {};
-  }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isOnline]);
 
-  componentDidUpdate() {
-    if (!this.state.prevIsOnline && this.state.showStatus) {
-      this.timeout = setTimeout(() => {
-        this.setState({ showStatus: false });
-      }, 1500);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-  }
-
-  render() {
-    const { showStatus } = this.state;
-
-    return showStatus ? (
-      <div className="network online">
-        <div>Online</div>
-      </div>
-    ) : null;
-  }
-}
+  return showStatus ? (
+    <div className="network online">
+      <div>Online</div>
+    </div>
+  ) : null;
+};
 
 export default Online;

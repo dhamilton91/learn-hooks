@@ -1,39 +1,30 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
-interface Props {}
+const useTimer = () => {
+  const [currentTime, setCurrentTime] = useState(0);
 
-interface State {
-  currentTime: number;
-}
-
-class Timer extends Component<Props, State> {
-  state = {
-    currentTime: 0
-  };
-
-  timer?: NodeJS.Timeout;
-
-  componentDidMount() {
-    this.timer = setInterval(() => {
-      this.setState({ currentTime: this.state.currentTime + 1 });
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(currentTime + 1);
     }, 1000);
-  }
 
-  componentWillUnmount() {
-    if (this.timer) {
-      clearInterval(this.timer);
-    }
-  }
+    return () => {
+      clearInterval(timer);
+    };
+  });
 
-  render() {
-    const { currentTime } = this.state;
-    return (
-      <>
-        <div className="loader" />
-        <div className="time">{currentTime}s</div>
-      </>
-    );
-  }
-}
+  return currentTime;
+};
+
+const Timer = () => {
+  const currentTime = useTimer();
+
+  return (
+    <>
+      <div className="loader" />
+      <div className="time">{currentTime}s</div>
+    </>
+  );
+};
 
 export default Timer;

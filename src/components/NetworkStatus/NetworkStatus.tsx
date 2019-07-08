@@ -1,54 +1,35 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Online from "./Online";
 
-class NetworkStatus extends Component<{}, { isOnline: boolean }> {
-  state = {
-    isOnline: true
-  };
+const NetworkStatus = () => {
+  const [isOnline, setIsOnline] = useState(true);
 
-  onlineEventListener = () =>
-    this.setState({
-      isOnline: navigator.onLine
-    });
-  offlineEventListener = () =>
-    this.setState({
-      isOnline: navigator.onLine
-    });
+  useEffect(() => {
+    const onlineEventListener = () => setIsOnline(navigator.onLine);
+    const offlineEventListener = () => setIsOnline(navigator.onLine);
+    window.addEventListener("online", onlineEventListener);
+    window.addEventListener("offline", offlineEventListener);
 
-  componentDidMount() {
-    window.addEventListener("online", this.onlineEventListener);
-    window.addEventListener("offline", this.offlineEventListener);
-  }
+    return () => {
+      window.removeEventListener("online", onlineEventListener);
+      window.removeEventListener("offline", offlineEventListener);
+    };
+  });
 
-  componentWillUnmount() {
-    window.removeEventListener("online", this.onlineEventListener);
-    window.removeEventListener("offline", this.offlineEventListener);
-  }
+  return (
+    <>
+      <button onClick={() => setIsOnline(!isOnline)}>
+        Go {isOnline ? "OFFLINE" : "ONLINE"}{" "}
+      </button>
 
-  render() {
-    const { isOnline } = this.state;
-
-    return (
-      <>
-        <button
-          onClick={() =>
-            this.setState({
-              isOnline: !isOnline
-            })
-          }
-        >
-          Go {isOnline ? "OFFLINE" : "ONLINE"}{" "}
-        </button>
-
-        {isOnline && <Online isOnline={isOnline} />}
-        {!isOnline && (
-          <div className="network offline">
-            <div>Offline</div>
-          </div>
-        )}
-      </>
-    );
-  }
-}
+      {isOnline && <Online isOnline={isOnline} />}
+      {!isOnline && (
+        <div className="network offline">
+          <div>Offline</div>
+        </div>
+      )}
+    </>
+  );
+};
 
 export default NetworkStatus;
