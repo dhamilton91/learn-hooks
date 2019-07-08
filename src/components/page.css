@@ -7,12 +7,7 @@
   border-right: 1px solid #ccc;
 }
 
-.navigation ul {
-  list-style: none;
-  padding: 5px;
-}
-
-.navigation ul li {
+.navigation ol li {
   cursor: pointer;
   padding: 10px;
   text-decoration: underline;

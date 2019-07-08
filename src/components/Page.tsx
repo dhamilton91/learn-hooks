@@ -7,13 +7,13 @@ const Page = ({ children }: { children: ReactChildren }) => {
     <div className="page">
       <div className="navigation">
         <div>Examples:</div>
-        <ul>
+        <ol>
           <li onClick={() => navigate("/button")}>Button</li>
           <li onClick={() => navigate("/timer")}>Timer</li>
           <li onClick={() => navigate("/network")}>Network</li>
           <li onClick={() => navigate("/fetch")}>Fetch</li>
           <li onClick={() => navigate("/exercise")}>Exercise</li>
-        </ul>
+        </ol>
       </div>
       <div className="contents">{children}</div>
     </div>
