@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component } from "react";
 
 class Online extends Component<{ isOnline: boolean }, { showStatus: boolean }> {
   state = {

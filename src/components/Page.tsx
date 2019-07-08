@@ -11,6 +11,7 @@ const Page = ({ children }: { children: ReactChildren }) => {
           <li onClick={() => navigate("/button")}>Button</li>
           <li onClick={() => navigate("/timer")}>Timer</li>
           <li onClick={() => navigate("/network")}>Network</li>
+          <li onClick={() => navigate("/fetch")}>Fetch</li>
           <li onClick={() => navigate("/exercise")}>Exercise</li>
         </ul>
       </div>
