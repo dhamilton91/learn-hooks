@@ -91,3 +91,12 @@ input {
   text-align: center;
   padding: 2px;
 }
+
+.slide {
+  height: 400px;
+  width: 400px;
+  background-color: black;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
