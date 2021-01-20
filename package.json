@@ -7,7 +7,7 @@
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
     "hookrouter": "^1.2.3",
-    "immer": "^3.1.3",
+    "immer": "^8.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
